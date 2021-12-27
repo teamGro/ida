@@ -8,7 +8,7 @@ const DB_FILE = process.env.DB_FILE || './db.json';
 // номер порта, на котором будет запущен сервер
 const PORT = process.env.PORT || 3000;
 // префикс URI для всех методов приложения
-const URI_PREFIX = '/api/clients';
+const URI_PREFIX = '/api/products';
 
 /**
  * Класс ошибки, используется для отправки ответа с определённым кодом и описанием ошибки
@@ -88,7 +88,7 @@ function getProductList(params = {}) {
         .some(str => str.toLowerCase().includes(search))
     );
   }
-  return clients;
+  return products;
 }
 
 /**
