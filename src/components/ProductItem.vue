@@ -52,4 +52,20 @@ export default defineComponent({
         line-height: 30px;
     }
 }
+
+@media (min-width: 1024px) {
+    .card {
+        height: 100%;
+
+        &__wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__price {
+            margin-top: auto;
+        }
+    }
+}
 </style>
