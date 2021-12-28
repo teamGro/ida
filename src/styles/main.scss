@@ -1,0 +1,72 @@
+@import './fonts';
+@import './variables.scss';
+@import './breakpoint.scss';
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    padding: 15px 0;
+    margin: 0;
+    font-family: $SansPro;
+    font-size: 16px;
+    line-height: 20px;
+  
+    color: $fontColor;
+  }
+
+  *,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  box-shadow: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  padding: 0 15px;
+
+  @include breakpoint(sm) {
+    padding: 0;
+    margin: 0 auto;
+    width: 640px;
+  }
+
+  @include breakpoint(md) {
+    width: 915px;
+  }
+
+  @include breakpoint(lg) {
+    width: 1040px;
+  }
+
+  @include breakpoint(xl) {
+    width: 1500px;
+  }
+}
