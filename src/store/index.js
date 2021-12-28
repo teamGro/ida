@@ -13,7 +13,7 @@ export default createStore({
       state.products = products;
     },
     updateProductList(state, product) {
-      state.products.pop(product);
+      state.products.unshift(product);
     },
   },
   actions: {

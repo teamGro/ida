@@ -1,7 +1,7 @@
 <template>
-  <div class="home container">
-    <FormAddProduct />
-    <ProductList />
+  <div class="main container">
+    <FormAddProduct class="main__form"/>
+    <ProductList class="main__products"/>
   </div>
 </template>
 
@@ -26,3 +26,16 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+@media (min-width: 1280px) {
+  .main {
+    display: flex;
+
+    &__form {
+      width: 330px;
+      margin-right: 15px;
+    }
+  }
+}
+</style>

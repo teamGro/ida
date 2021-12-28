@@ -44,4 +44,10 @@ export default defineComponent({
     }
   }
 }
+
+@media (min-width: 1280px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 </style>
