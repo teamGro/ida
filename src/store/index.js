@@ -15,6 +15,10 @@ export default createStore({
     updateProductList(state, product) {
       state.products.unshift(product);
     },
+    deleteProduct(state, itemId) {
+      const itemIndex = state.products.findIndex(({ id }) => id === itemId);
+      state.products.splice(itemIndex, 1);
+    },
   },
   actions: {
     async getProducts({ commit }) {

@@ -143,11 +143,11 @@ function updateProduct(itemId, data) {
  * @returns {{}}
  */
 function deleteProduct(itemId) {
-  const clients = getProductList();
-  const itemIndex = clients.findIndex(({ id }) => id === itemId);
-  if (itemIndex === -1) throw new ApiError(404, { message: 'Client Not Found' });
-  clients.splice(itemIndex, 1);
-  writeFileSync(DB_FILE, JSON.stringify(clients), { encoding: 'utf8' });
+  const products = getProductList();
+  const itemIndex = products.findIndex(({ id }) => id === itemId);
+  if (itemIndex === -1) throw new ApiError(404, { message: 'Product not found' });
+  products.splice(itemIndex, 1);
+  writeFileSync(DB_FILE, JSON.stringify(products), { encoding: 'utf8' });
   return {};
 }
 
@@ -165,7 +165,6 @@ module.exports = createServer(async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   // запрос с методом OPTIONS может отправлять браузер автоматически для проверки CORS заголовков
   // в этом случае достаточно ответить с пустым телом и этими заголовками
   if (req.method === 'OPTIONS') {

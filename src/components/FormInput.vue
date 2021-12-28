@@ -3,11 +3,12 @@
     <input
       class="form__input"
       :class="{ 'form__input--error': error }"
-      type="text"
+      :type="type"
       :value="fieldValue"
       @input="handleCurrentValue($event)"
       :placeholder="placeholder"
     />
+    <span class="form__error" v-if="error">{{error}}</span>
   </form-field>
 </template>
 
@@ -16,7 +17,16 @@ import { defineComponent } from 'vue';
 import FormField from './FormField.vue';
 
 export default defineComponent({
-  props: ['title', 'isRequired', 'fieldValue', 'placeholder', 'error'],
+  props: {
+    title: String,
+    isRequired: Boolean,
+    fieldValue: [String, Number],
+    placeholder: String,
+    error: String,
+    type: {
+      default: 'text',
+    },
+  },
   components: { FormField },
   setup(props, context) {
     function handleCurrentValue(e) {
@@ -51,17 +61,18 @@ export default defineComponent({
       color: #b4b4b4;
     }
 
-    &:not(:last-child) {
-      margin-bottom: 15px;
-    }
-
-    &:last-child {
-      margin-bottom: 25px;
-    }
-
     &--error {
       border: 1px solid crimson;
     }
+  }
+
+  &__error {
+    margin-top: 4px;
+
+    font-size: 8px;
+    line-height: 10px;
+    letter-spacing: -0.02em;
+    color: #FF8484;
   }
 }
 </style>

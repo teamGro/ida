@@ -24,6 +24,14 @@ export default defineComponent({
   &__input-wrapper {
     display: flex;
     flex-direction: column;
+
+        &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    &:last-child {
+      margin-bottom: 25px;
+    }
   }
 
   &__label {

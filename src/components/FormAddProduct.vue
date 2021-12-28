@@ -33,6 +33,7 @@
         :placeholder="fieldsPlaceholder.price"
         v-model:fieldValue="productValues.price"
         v-model:error="formError.price"
+        type="number"
       >
       </form-input>
 
@@ -64,7 +65,7 @@ export default defineComponent({
         store.commit('updateProductList', response.data);
       } catch (error) {
         error.response.data.errors.forEach((item) => {
-          formError[item.field] = true;
+          formError[item.field] = item.message;
         });
       }
     }
@@ -109,15 +110,17 @@ export default defineComponent({
     flex-direction: column;
     justify-content: center;
     padding: 24px;
-    background-color: #fffefb;
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04),
       0px 6px 10px rgba(0, 0, 0, 0.02);
     border-radius: 4px;
+
+    background-color: #fffefb;
   }
 
   &__btn {
     border-radius: 10px;
-    padding: 10px 95px;
+    padding: 10px;
+    width: 100%;
     //max-width: 284px;
 
     font-weight: 600;
@@ -128,6 +131,19 @@ export default defineComponent({
     color: #b4b4b4;
 
     background-color: #eeeeee;
+    transition: all .3s ease;
+
+    &:hover {
+      color: #fff;
+      background: #7BAE73;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .form {
+    width: 330px;
   }
 }
 </style>

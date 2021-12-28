@@ -32,22 +32,42 @@ export default defineComponent({
 
 @media (min-width: 1024px) {
   .products {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    grid-gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    //justify-content: space-between;
+    // grid-template-columns: repeat(2, 1fr);
+    // grid-auto-rows: auto;
+    // grid-gap: 15px;
 
     &__item {
-      &:not(:last-child) {
-        margin-bottom: 0;
-        }
+      cursor: pointer;
+      width: calc(100% / 2 - 7.5px);
+      margin-bottom: 15px;
+
+      &:nth-child(2n) {
+        margin-left: 15px;
+      }
     }
   }
 }
 
 @media (min-width: 1280px) {
   .products {
-    grid-template-columns: repeat(3, 1fr);
+    width: calc(100% - 345px);
+
+    &__item {
+      width: calc(100% / 3 - 10px);
+
+      margin-right: 15px;
+
+      &:nth-child(2n) {
+        margin-left: 0;
+      }
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+    }
   }
 }
 </style>
