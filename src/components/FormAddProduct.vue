@@ -7,6 +7,7 @@
         :isRequired="true"
         :placeholder="fieldsPlaceholder.name"
         v-model:fieldValue="productValues.name"
+        v-model:error="formError.name"
       >
       </form-input>
 
@@ -22,6 +23,7 @@
         :isRequired="true"
         :placeholder="fieldsPlaceholder.img"
         v-model:fieldValue="productValues.img"
+        v-model:error="formError.img"
       >
       </form-input>
 
@@ -30,15 +32,20 @@
         :isRequired="true"
         :placeholder="fieldsPlaceholder.price"
         v-model:fieldValue="productValues.price"
+        v-model:error="formError.price"
       >
       </form-input>
 
-      <button class="form__btn">Добавить товар</button>
+      <button class="form__btn" @click.prevent="saveProduct">
+        Добавить товар
+      </button>
     </form>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import { useStore } from 'vuex';
 import { defineComponent, reactive } from 'vue';
 import FormInput from './FormInput.vue';
 import FormTextarea from './FormTextarea.vue';
@@ -46,12 +53,21 @@ import FormTextarea from './FormTextarea.vue';
 export default defineComponent({
   components: { FormInput, FormTextarea },
   setup() {
-    const productValues = reactive({
-      name: '',
-      description: '',
-      img: '',
-      price: '',
-    });
+    const store = useStore();
+    const productValues = reactive({});
+    const formError = reactive({});
+
+    async function saveProduct() {
+      let response;
+      try {
+        response = await axios.post('http://localhost:3000/api/products', productValues);
+        store.commit('updateProductList', response.data);
+      } catch (error) {
+        error.response.data.errors.forEach((item) => {
+          formError[item.field] = true;
+        });
+      }
+    }
 
     return {
       FormInput,
@@ -68,6 +84,9 @@ export default defineComponent({
         price: 'Введите цену',
       },
       productValues,
+      formError,
+
+      saveProduct,
     };
   },
 });
