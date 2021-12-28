@@ -22,3 +22,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.products {
+  &__item:not(:last-child) {
+  margin-bottom: 15px;
+  }
+}
+</style>

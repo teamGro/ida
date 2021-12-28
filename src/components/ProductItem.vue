@@ -26,6 +26,9 @@ export default defineComponent({
 .card {
     display: flex;
     flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04), 0px 6px 10px rgba(0, 0, 0, 0.02);
+    background: #FFFEFB;
 
     &__wrapper {
         padding: 15px 15px 25px;
