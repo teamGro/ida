@@ -2,36 +2,35 @@
   <div class="form">
     <h2 class="form__title">Добавление товара</h2>
     <form class="form__wrapper" action="">
-      <form-input :title="fieldsTitle.name" :isRequired="true">
-        <input
-          class="form__input"
-          type="text"
-          :placeholder="fieldsPlaceholder.name"
-        />
+      <form-input
+        :title="fieldsTitle.name"
+        :isRequired="true"
+        :placeholder="fieldsPlaceholder.name"
+        v-model:fieldValue="productValues.name"
+      >
       </form-input>
 
-      <form-input :title="fieldsTitle.description">
-        <textarea
-          class="form__input form__input--textarea"
-          type="text"
-          :placeholder="fieldsPlaceholder.description"
-        ></textarea>
+      <form-textarea
+        :title="fieldsTitle.description"
+        :placeholder="fieldsPlaceholder.description"
+        v-model:fieldValue="productValues.description"
+      >
+      </form-textarea>
+
+      <form-input
+        :title="fieldsTitle.img"
+        :isRequired="true"
+        :placeholder="fieldsPlaceholder.img"
+        v-model:fieldValue="productValues.img"
+      >
       </form-input>
 
-      <form-input :title="fieldsTitle.img" :isRequired="true">
-        <input
-          class="form__input"
-          type="text"
-          :placeholder="fieldsPlaceholder.img"
-        />
-      </form-input>
-
-      <form-input :title="fieldsTitle.price" :isRequired="true">
-        <input
-          class="form__input"
-          type="text"
-          :placeholder="fieldsPlaceholder.price"
-        />
+      <form-input
+        :title="fieldsTitle.price"
+        :isRequired="true"
+        :placeholder="fieldsPlaceholder.price"
+        v-model:fieldValue="productValues.price"
+      >
       </form-input>
 
       <button class="form__btn">Добавить товар</button>
@@ -40,12 +39,20 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, reactive } from 'vue';
 import FormInput from './FormInput.vue';
+import FormTextarea from './FormTextarea.vue';
 
 export default defineComponent({
-  components: { FormInput },
+  components: { FormInput, FormTextarea },
   setup() {
+    const productValues = reactive({
+      name: '',
+      description: '',
+      img: '',
+      price: '',
+    });
+
     return {
       FormInput,
       fieldsTitle: {
@@ -58,8 +65,9 @@ export default defineComponent({
         name: 'Введите наименование товара',
         description: 'Введите описание товара',
         img: 'Введите ссылку',
-        price: 'Введите ссылку',
+        price: 'Введите цену',
       },
+      productValues,
     };
   },
 });
@@ -67,6 +75,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form {
+  margin-bottom: 30px;
+
   &__title {
     margin-bottom: 15px;
 
@@ -84,36 +94,6 @@ export default defineComponent({
     box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.04),
       0px 6px 10px rgba(0, 0, 0, 0.02);
     border-radius: 4px;
-  }
-
-  &__input {
-    border: none;
-    padding: 10px 0 10px 16px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    width: 100%;
-    //max-width: 284px;
-
-    background: #fffefb;
-
-    &::placeholder {
-      font-size: 12px;
-      line-height: 15px;
-      color: #b4b4b4;
-    }
-
-    &:not(:last-child) {
-      margin-bottom: 15px;
-    }
-
-    &:last-child {
-      margin-bottom: 25px;
-    }
-
-    &--textarea {
-      resize: none;
-      min-height: 110px;
-    }
   }
 
   &__btn {
