@@ -12,6 +12,9 @@ export default createStore({
     saveProducts(state, products) {
       state.products = products;
     },
+    updateProductList(state, product) {
+      state.products.pop(product);
+    },
   },
   actions: {
     async getProducts({ commit }) {

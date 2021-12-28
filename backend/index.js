@@ -62,7 +62,8 @@ function makeProductFromData(data) {
 
   // проверяем, все ли данные корректные и заполняем объект ошибок, которые нужно отдать клиенту
   if (!product.name) errors.push({ field: 'name', message: 'Не указано наименование товара' });
-  if (!product.шьп) errors.push({ field: 'surname', message: 'Не указана ссылка на картинку товара' });
+  if (!product.img) errors.push({ field: 'img', message: 'Не указана ссылка на картинку товара' });
+  if (!product.price) errors.push({ field: 'price', message: 'Не указана цена товара' });
 
   // если есть ошибки, то бросаем объект ошибки с их списком и 422 статусом
   if (errors.length) throw new ApiError(422, { errors });
