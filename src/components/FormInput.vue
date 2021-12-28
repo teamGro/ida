@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="form__input-wrapper">
     <label class="form__label" for=""
       >{{ title }}<span class="form__required" v-if="isRequired"></span
     ></label>
@@ -18,6 +18,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form {
+  &__input-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__label {
     position: relative;
     margin-bottom: 4px;
