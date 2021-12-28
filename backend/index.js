@@ -73,7 +73,7 @@ function makeProductFromData(data) {
 /**
  * Возвращает список товаров из базы данных
  * @param {{ search: string }} [params] - Поисковая строка
- * @returns {{ id: string, name: string, surname: string, lastName: string, contacts: object[] }[]} Массив клиентов
+ * @returns {{ id: string, name: string, description: string, img: string, price: string }[]} Массив товаров
  */
 function getProductList(params = {}) {
   const products = JSON.parse(readFileSync(DB_FILE) || '[]');
@@ -88,6 +88,7 @@ function getProductList(params = {}) {
         .some(str => str.toLowerCase().includes(search))
     );
   }
+  console.log(products);
   return products;
 }
 
