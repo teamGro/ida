@@ -91,7 +91,8 @@ export default defineComponent({
     padding: 10px 0 10px 16px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-    width: 284px;
+    width: 100%;
+    //max-width: 284px;
 
     background: #fffefb;
 
@@ -118,6 +119,7 @@ export default defineComponent({
   &__btn {
     border-radius: 10px;
     padding: 10px 95px;
+    //max-width: 284px;
 
     font-weight: 600;
     font-size: 12px;
