@@ -1,13 +1,17 @@
 <template>
   <ul class="sort">
-    <li class="sort__item sort__item--main" @click="toggleFilters">
+    <li
+      class="sort__item sort__item--main"
+      @click="toggleFilters"
+      :class="{ 'sort__item--main-shown': isOpen }"
+    >
       {{ activeFilter }}
     </li>
     <li
       class="sort__item"
       :class="[
         { 'sort__item--shown': isOpen },
-        { 'sort__item--disabled': item === activeFilter },
+        { 'sort__item--disabled': item.title === activeFilter },
       ]"
       v-for="item in filters"
       :key="item.id"
@@ -67,7 +71,7 @@ export default defineComponent({
     z-index: 5;
     transition: opacity 0.5s ease;
 
-    width: 130px;
+    width: 145px;
     padding: 10px 16px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
@@ -81,6 +85,26 @@ export default defineComponent({
     &--main {
       z-index: 10;
       opacity: 1;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-70%) rotate(-45deg);
+
+        width: 4.59px;
+        height: 4.59px;
+        border-left: 1px solid #b4b4b4;
+        border-bottom: 1px solid #b4b4b4;
+        transition: transform 0.3s ease;
+      }
+    }
+
+    &--main-shown {
+      &::after {
+        transform: translateY(-100%) rotate(-225deg);
+      }
     }
 
     &--shown {

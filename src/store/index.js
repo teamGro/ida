@@ -38,6 +38,10 @@ export default createStore({
       state.products.splice(itemIndex, 1);
     },
     sortProductList(state, id) {
+      if (id === 1) {
+        state.products = state.products
+          .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+      }
       if (id === 2) {
         state.products.sort((a, b) => (a.name > b.name ? 1 : -1));
       }
