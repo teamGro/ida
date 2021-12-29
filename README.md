@@ -20,7 +20,7 @@ npm run build
 npm run lint
 ```
 
-### Start backed
+### Start backend
 ```
 npm run dev
 ```
