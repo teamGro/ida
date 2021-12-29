@@ -63,6 +63,11 @@ export default defineComponent({
       try {
         response = await axios.post('http://localhost:3000/api/products', productValues);
         store.commit('updateProductList', response.data);
+        /* eslint-disable no-restricted-syntax */
+        /* eslint-disable guard-for-in */
+        for (const key in productValues) {
+          productValues[key] = '';
+        }
       } catch (error) {
         error.response.data.errors.forEach((item) => {
           formError[item.field] = item.message;

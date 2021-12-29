@@ -1,5 +1,6 @@
 <template>
-  <ul class="products">
+  <Preloader v-if="isLoading"/>
+  <ul class="products" v-else>
     <transition-group name="list">
       <li class="products__item" v-for="product in products" :key="product.id">
         <ProductItem :item="product" />
@@ -12,11 +13,14 @@
 import { useStore } from 'vuex';
 import { defineComponent, computed } from 'vue';
 import ProductItem from './ProductItem.vue';
+import Preloader from './Preloader.vue';
 
 export default defineComponent({
-  components: { ProductItem },
+  components: { ProductItem, Preloader },
+  props: ['isLoading'],
   setup() {
     const store = useStore();
+
     return {
       products: computed(() => store.state.products),
       ProductItem,
@@ -29,6 +33,7 @@ export default defineComponent({
 .list-enter-active,
 .list-leave-active {
   transition: all 0.5s ease;
+
 }
 .list-enter-from,
 .list-leave-to {
@@ -52,6 +57,8 @@ export default defineComponent({
   }
 
   &__item {
+    //transition: all $linear;
+
     :not(:last-child) {
       margin-bottom: 15px;
     }

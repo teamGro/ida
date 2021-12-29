@@ -2,15 +2,14 @@
   <div class="main container">
     <FormAddProduct class="main__form" />
     <div class="wrapper">
-      <SortList />
-      <ProductList class="main__products" />
+      <SortList v-model:isLoading="isLoading"/>
+      <ProductList class="main__products" v-model:isLoading="isLoading"/>
     </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import { defineComponent } from 'vue';
+import { defineComponent, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import ProductList from '@/components/ProductList.vue';
 import FormAddProduct from '@/components/FormAddProduct.vue';
@@ -25,9 +24,25 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const isLoading = ref(true);
+
     store.dispatch('getProducts');
 
-    return {};
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 3000);
+
+    watch(isLoading, (val) => {
+      if (val) {
+        setTimeout(() => {
+          isLoading.value = false;
+        }, 1000);
+      }
+    });
+
+    return {
+      isLoading,
+    };
   },
 });
 </script>

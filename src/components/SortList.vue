@@ -29,7 +29,8 @@ import SortItem from './SortItem.vue';
 
 export default defineComponent({
   components: { SortItem },
-  setup() {
+  props: ['isLoading'],
+  setup(props, context) {
     const store = useStore();
     const isOpen = ref(false);
     const activeFilter = ref('По умолчанию');
@@ -42,6 +43,7 @@ export default defineComponent({
       activeFilter.value = filter.title;
       isOpen.value = !isOpen.value;
       store.commit('sortProductList', filter.id);
+      context.emit('update:isLoading', true);
     }
 
     return {

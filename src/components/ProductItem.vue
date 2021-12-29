@@ -26,11 +26,10 @@ export default defineComponent({
 
     async function deleteCard() {
       try {
-        const response = await axios.delete(`http://localhost:3000/api/products/${props.item.id}`);
-        console.log(response);
+        await axios.delete(`http://localhost:3000/api/products/${props.item.id}`);
         store.commit('deleteProduct', props.item.id);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     }
 

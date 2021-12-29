@@ -56,8 +56,12 @@ export default createStore({
   },
   actions: {
     async getProducts({ commit }) {
-      const response = await axios.get(`${baseURL}api/products`);
-      commit('saveProducts', response.data);
+      try {
+        const response = await axios.get(`${baseURL}api/products`);
+        commit('saveProducts', response.data);
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 });
