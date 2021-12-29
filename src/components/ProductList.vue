@@ -37,23 +37,21 @@ export default defineComponent({
 }
 
 .products {
+  @include breakpoint(md) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  @include breakpoint(lg) {
+    width: 100%;
+  }
+
   &__item {
     :not(:last-child) {
       margin-bottom: 15px;
     }
-  }
-}
 
-@media (min-width: 1024px) {
-  .products {
-    display: flex;
-    flex-wrap: wrap;
-    //justify-content: space-between;
-    // grid-template-columns: repeat(2, 1fr);
-    // grid-auto-rows: auto;
-    // grid-gap: 15px;
-
-    &__item {
+    @include breakpoint(md) {
       cursor: pointer;
       width: calc(100% / 2 - 7.5px);
       margin-bottom: 15px;
@@ -62,14 +60,8 @@ export default defineComponent({
         margin-left: 15px;
       }
     }
-  }
-}
 
-@media (min-width: 1280px) {
-  .products {
-    width: 100%;
-
-    &__item {
+    @include breakpoint(lg) {
       width: calc(100% / 3 - 10px);
       margin-right: 15px;
 

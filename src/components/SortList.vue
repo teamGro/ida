@@ -60,7 +60,6 @@ export default defineComponent({
   position: relative;
 
   height: 36px;
-  //overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -68,8 +67,9 @@ export default defineComponent({
 
   &__item {
     opacity: 0;
-    z-index: 5;
+
     transition: opacity 0.5s ease;
+    cursor: pointer;
 
     width: 145px;
     padding: 10px 16px;
@@ -97,7 +97,7 @@ export default defineComponent({
         height: 4.59px;
         border-left: 1px solid #b4b4b4;
         border-bottom: 1px solid #b4b4b4;
-        transition: transform 0.3s ease;
+        transition: transform $ease;
       }
     }
 
@@ -109,6 +109,12 @@ export default defineComponent({
 
     &--shown {
       opacity: 1;
+      z-index: 5;
+      transition: border $linear;
+
+      &:hover {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
     }
 
     &--disabled {

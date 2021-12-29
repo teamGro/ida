@@ -42,37 +42,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style lang="scss" scoped>
-.form {
-  &__input {
-    border: none;
-    padding: 10px 0 10px 16px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    width: 100%;
-    //max-width: 284px;
-
-    background: #fffefb;
-
-    &::placeholder {
-      font-size: 12px;
-      line-height: 15px;
-      color: #b4b4b4;
-    }
-
-    &--error {
-      border: 1px solid crimson;
-    }
-  }
-
-  &__error {
-    margin-top: 4px;
-
-    font-size: 8px;
-    line-height: 10px;
-    letter-spacing: -0.02em;
-    color: #ff8484;
-  }
-}
-</style>

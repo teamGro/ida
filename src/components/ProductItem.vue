@@ -58,6 +58,14 @@ export default defineComponent({
     0px 6px 10px rgba(0, 0, 0, 0.02);
   background: #fffefb;
 
+  @include breakpoint(md) {
+    height: 100%;
+
+    &:hover .card__delete {
+      opacity: 1;
+    }
+  }
+
   &__delete {
     position: absolute;
     top: -8px;
@@ -69,6 +77,12 @@ export default defineComponent({
     border-radius: 10px;
 
     background: #ff8484;
+
+    @include breakpoint(md) {
+      opacity: 0;
+      cursor: pointer;
+      transition: opacity $ease;
+    }
   }
 
   &__delete-btn {
@@ -78,6 +92,12 @@ export default defineComponent({
 
   &__wrapper {
     padding: 15px 15px 25px;
+
+    @include breakpoint(md) {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   &__title {
@@ -96,30 +116,8 @@ export default defineComponent({
     font-weight: 600;
     font-size: 24px;
     line-height: 30px;
-  }
-}
 
-@media (min-width: 1024px) {
-  .card {
-    height: 100%;
-
-    &:hover .card__delete {
-      opacity: 1;
-    }
-
-    &__delete {
-      opacity: 0;
-      cursor: pointer;
-      transition: opacity 0.3s ease;
-    }
-
-    &__wrapper {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    &__price {
+    @include breakpoint(md) {
       margin-top: auto;
     }
   }

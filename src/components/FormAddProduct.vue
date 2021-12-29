@@ -93,9 +93,13 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .form {
   margin-bottom: 30px;
+
+  @include breakpoint(lg) {
+    width: 330px;
+  }
 
   &__title {
     margin-bottom: 15px;
@@ -117,11 +121,92 @@ export default defineComponent({
     background-color: #fffefb;
   }
 
+  &__input-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    &:last-child {
+      margin-bottom: 25px;
+    }
+  }
+
+  &__label {
+    position: relative;
+    margin-bottom: 4px;
+
+    font-size: 10px;
+    line-height: 13px;
+    letter-spacing: -0.02em;
+    color: #49485e;
+  }
+
+  &__required {
+    position: absolute;
+    top: 0;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+
+    background-color: #ff8484;
+  }
+
+  &__input {
+    cursor: pointer;
+    border: none;
+    padding: 10px 0 10px 16px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    width: 100%;
+
+    font-family: $SansPro;
+    font-size: 12px;
+    line-height: 15px;
+    color: $fontColor;
+
+    background: #fffefb;
+    transition: outline $linear;
+
+    &::placeholder {
+      font-size: 12px;
+      line-height: 15px;
+      color: #b4b4b4;
+    }
+
+    &--error {
+      border: 1px solid #ff8484;
+    }
+
+    &--textarea {
+      resize: none;
+      min-height: 110px;
+      font-family: $SansPro;
+    }
+
+    &:active,
+    &:hover,
+    &:focus {
+      outline: 1px solid #a3a3a3;
+    }
+  }
+
+  &__error {
+    margin-top: 4px;
+
+    font-size: 8px;
+    line-height: 10px;
+    letter-spacing: -0.02em;
+    color: #ff8484;
+  }
+
   &__btn {
     border-radius: 10px;
     padding: 10px;
     width: 100%;
-    //max-width: 284px;
 
     font-weight: 600;
     font-size: 12px;
@@ -131,19 +216,13 @@ export default defineComponent({
     color: #b4b4b4;
 
     background-color: #eeeeee;
-    transition: all 0.3s ease;
+    transition: all $ease;
 
     &:hover {
       color: #fff;
       background: #7bae73;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
-  }
-}
-
-@media (min-width: 1280px) {
-  .form {
-    width: 330px;
   }
 }
 </style>
