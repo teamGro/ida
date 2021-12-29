@@ -43,7 +43,7 @@ function drainJson(req) {
  * Проверяет входные данные и создаёт из них корректный объект клиента
  * @param {Object} data - Объект с входными данными
  * @throws {ApiError} Некорректные данные в аргументе (statusCode 422)
- * @returns {{ name: string, surname: string, lastName: string, contacts: object[] }} Объект клиента
+ * @returns {{ name: string, description: string, img: string, price: number }} Объект клиента
  */
 function makeProductFromData(data) {
   const errors = [];
@@ -52,12 +52,16 @@ function makeProductFromData(data) {
     return v && String(v).trim() || '';
   }
 
+  function asNumber(v) {
+    return v && Number(v);
+  }
+
   // составляем объект, где есть только необходимые поля
   const product = {
     name: asString(data.name),
     description: asString(data.description),
     img: asString(data.img),
-    price: asString(data.price)
+    price: asNumber(data.price)
   };
 
   // проверяем, все ли данные корректные и заполняем объект ошибок, которые нужно отдать клиенту
@@ -74,7 +78,7 @@ function makeProductFromData(data) {
 /**
  * Возвращает список товаров из базы данных
  * @param {{ search: string }} [params] - Поисковая строка
- * @returns {{ id: string, name: string, description: string, img: string, price: string }[]} Массив товаров
+ * @returns {{ id: string, name: string, description: string, img: string, price: number }[]} Массив товаров
  */
 function getProductList(params = {}) {
   const products = JSON.parse(readFileSync(DB_FILE) || '[]');
@@ -89,7 +93,6 @@ function getProductList(params = {}) {
         .some(str => str.toLowerCase().includes(search))
     );
   }
-  console.log(products);
   return products;
 }
 
@@ -97,7 +100,7 @@ function getProductList(params = {}) {
  * Создаёт и сохраняет товары в базу данных
  * @throws {ApiError} Некорректные данные в аргументе, клиент не создан (statusCode 422)
  * @param {Object} data - Данные из тела запроса
- * @returns {{ id: string, name: string, description: string, img: string, price: string, createdAt: string, updatedAt: string }} Объект клиента
+ * @returns {{ id: string, name: string, description: string, img: string, price: number, createdAt: string }} Объект клиента
  */
 function createProduct(data) {
   const newItem = makeProductFromData(data);
@@ -105,36 +108,6 @@ function createProduct(data) {
   newItem.createdAt = newItem.updatedAt = new Date().toISOString();
   writeFileSync(DB_FILE, JSON.stringify([...getProductList(), newItem]), { encoding: 'utf8' });
   return newItem;
-}
-
-/**
- * Возвращает объект товара по его ID
- * @param {string} itemId - ID товара
- * @throws {ApiError} Товар с таким ID не найден (statusCode 404)
- * @returns {{ id: string, name: string, description: string, img: string, price: string, createdAt: string, updatedAt: string }} Объект товара
- */
-function getProduct(itemId) {
-  const client = getProductList().find(({ id }) => id === itemId);
-  if (!client) throw new ApiError(404, { message: 'Client Not Found' });
-  return client;
-}
-
-/**
- * Изменяет товар с указанным ID и сохраняет изменения в базу данных
- * @param {string} itemId - ID изменяемого товара
- * @param {{ name: string, description?: string, img: string, price?: string }} data - Объект с изменяемыми данными
- * @throws {ApiError} Товар с таким ID не найден (statusCode 404)
- * @throws {ApiError} Некорректные данные в аргументе (statusCode 422)
- * @returns {{ id: string, name: string, description: string, img: string, price: string, createdAt: string, updatedAt: string }} Объект клиента
- */
-function updateProduct(itemId, data) {
-  const producst = getProductList();
-  const itemIndex = producst.findIndex(({ id }) => id === itemId);
-  if (itemIndex === -1) throw new ApiError(404, { message: 'Product Not Found' });
-  Object.assign(producst[itemIndex], makeProductFromData({ ...producst[itemIndex], ...data }));
-  producst[itemIndex].updatedAt = new Date().toISOString();
-  writeFileSync(DB_FILE, JSON.stringify(producst), { encoding: 'utf8' });
-  return producst[itemIndex];
 }
 
 /**
@@ -210,8 +183,6 @@ module.exports = createServer(async (req, res) => {
         // /api/clients/{id}
         // параметр {id} из URI запроса
         const itemId = uri.substr(1);
-        if (req.method === 'GET') return getProduct(itemId);
-        if (req.method === 'PATCH') return updateProduct(itemId, await drainJson(req));
         if (req.method === 'DELETE') return deleteProduct(itemId);
       }
       return null;

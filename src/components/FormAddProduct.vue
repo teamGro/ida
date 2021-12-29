@@ -131,11 +131,11 @@ export default defineComponent({
     color: #b4b4b4;
 
     background-color: #eeeeee;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 
     &:hover {
       color: #fff;
-      background: #7BAE73;
+      background: #7bae73;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
   }

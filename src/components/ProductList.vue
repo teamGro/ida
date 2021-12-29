@@ -1,9 +1,11 @@
 <template>
-    <ul class="products">
-        <li class="products__item" v-for="product in products" :key="product.id">
-            <ProductItem :item="product"/>
-        </li>
-    </ul>
+  <ul class="products">
+    <transition-group name="list">
+      <li class="products__item" v-for="product in products" :key="product.id">
+        <ProductItem :item="product" />
+      </li>
+    </transition-group>
+  </ul>
 </template>
 
 <script>
@@ -24,9 +26,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(300px);
+}
+
 .products {
-  &__item:not(:last-child) {
-  margin-bottom: 15px;
+  &__item {
+    :not(:last-child) {
+      margin-bottom: 15px;
+    }
   }
 }
 
@@ -53,11 +67,10 @@ export default defineComponent({
 
 @media (min-width: 1280px) {
   .products {
-    width: calc(100% - 345px);
+    width: 100%;
 
     &__item {
       width: calc(100% / 3 - 10px);
-
       margin-right: 15px;
 
       &:nth-child(2n) {

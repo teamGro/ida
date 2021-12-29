@@ -8,7 +8,7 @@
       @input="handleCurrentValue($event)"
       :placeholder="placeholder"
     />
-    <span class="form__error" v-if="error">{{error}}</span>
+    <span class="form__error" v-if="error">{{ error }}</span>
   </form-field>
 </template>
 
@@ -72,7 +72,7 @@ export default defineComponent({
     font-size: 8px;
     line-height: 10px;
     letter-spacing: -0.02em;
-    color: #FF8484;
+    color: #ff8484;
   }
 }
 </style>
