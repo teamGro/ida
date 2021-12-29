@@ -16,13 +16,18 @@
 import { defineComponent } from 'vue';
 import FormField from './FormField.vue';
 
+const priceFormatter = new Intl.NumberFormat('ru');
+function formatPriceField(s) {
+  return priceFormatter.format(String(s).replace(/[^0-9.-]+/g, ''));
+}
+
 export default defineComponent({
   props: {
     title: String,
     isRequired: Boolean,
     fieldValue: [String, Number],
     placeholder: String,
-    error: String,
+    error: [String, Boolean],
     type: {
       default: 'text',
     },
@@ -30,7 +35,12 @@ export default defineComponent({
   components: { FormField },
   setup(props, context) {
     function handleCurrentValue(e) {
+      if (e.target.getAttribute('type') === 'currency') {
+        e.target.value = e.target.value ? formatPriceField(e.target.value) : '';
+      }
+
       context.emit('update:fieldValue', e.target.value);
+
       if (e.target.value.trim() !== '') {
         context.emit('update:error', false);
       }

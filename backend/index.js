@@ -53,7 +53,7 @@ function makeProductFromData(data) {
   }
 
   function asNumber(v) {
-    return v && Number(v);
+    return v && Number(v.replace(/\s/g, ''));
   }
 
   // составляем объект, где есть только необходимые поля

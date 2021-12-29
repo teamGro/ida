@@ -33,7 +33,12 @@ export default defineComponent({
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateY(300px);
+  transform: translateX(-300px);
+  z-index: -1;
+
+  @include breakpoint(md) {
+    transform: translateY(300px);
+  }
 }
 
 .products {

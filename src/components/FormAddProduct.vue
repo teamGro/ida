@@ -33,7 +33,7 @@
         :placeholder="fieldsPlaceholder.price"
         v-model:fieldValue="productValues.price"
         v-model:error="formError.price"
-        type="number"
+        type="currency"
       >
       </form-input>
 
