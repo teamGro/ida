@@ -84,11 +84,11 @@ function getProductList(params = {}) {
   const products = JSON.parse(readFileSync(DB_FILE) || '[]');
   if (params.search) {
     const search = params.search.trim().toLowerCase();
-    return products.filter(client => [
-        client.name,
-        client.description,
-        client.img,
-        client.price
+    return products.filter(product => [
+      product.name,
+      product.description,
+      product.img,
+      product.price
       ]
         .some(str => str.toLowerCase().includes(search))
     );
@@ -170,7 +170,7 @@ module.exports = createServer(async (req, res) => {
     // обрабатываем запрос и формируем тело ответа
     const body = await (async () => {
       if (uri === '' || uri === '/') {
-        // /api/clients
+        // /api/products
         if (req.method === 'GET') return getProductList(queryParams);
         if (req.method === 'POST') {
           const createdItem = createProduct(await drainJson(req));
@@ -180,7 +180,7 @@ module.exports = createServer(async (req, res) => {
           return createdItem;
         }
       } else {
-        // /api/clients/{id}
+        // /api/products/{id}
         // параметр {id} из URI запроса
         const itemId = uri.substr(1);
         if (req.method === 'DELETE') return deleteProduct(itemId);
