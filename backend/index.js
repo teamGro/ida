@@ -40,10 +40,10 @@ function drainJson(req) {
 }
 
 /**
- * Проверяет входные данные и создаёт из них корректный объект клиента
+ * Проверяет входные данные и создаёт из них корректный объект товара
  * @param {Object} data - Объект с входными данными
  * @throws {ApiError} Некорректные данные в аргументе (statusCode 422)
- * @returns {{ name: string, description: string, img: string, price: number }} Объект клиента
+ * @returns {{ name: string, description: string, img: string, price: number }} Объект товара
  */
 function makeProductFromData(data) {
   const errors = [];
@@ -98,9 +98,9 @@ function getProductList(params = {}) {
 
 /**
  * Создаёт и сохраняет товары в базу данных
- * @throws {ApiError} Некорректные данные в аргументе, клиент не создан (statusCode 422)
+ * @throws {ApiError} Некорректные данные в аргументе, товар не создан (statusCode 422)
  * @param {Object} data - Данные из тела запроса
- * @returns {{ id: string, name: string, description: string, img: string, price: number, createdAt: string }} Объект клиента
+ * @returns {{ id: string, name: string, description: string, img: string, price: number, createdAt: string }} Объект товара
  */
 function createProduct(data) {
   const newItem = makeProductFromData(data);
@@ -204,16 +204,12 @@ module.exports = createServer(async (req, res) => {
   // выводим инструкцию, как только сервер запустился...
   .on('listening', () => {
     if (process.env.NODE_ENV !== 'test') {
-      console.log(`Сервер CRM запущен. Вы можете использовать его по адресу http://localhost:${PORT}`);
+      console.log(`Сервер запущен. Вы можете использовать его по адресу http://localhost:${PORT}`);
       console.log('Нажмите CTRL+C, чтобы остановить сервер');
       console.log('Доступные методы:');
-      console.log(`GET ${URI_PREFIX} - получить список клиентов, в query параметр search можно передать поисковый запрос`);
-      console.log(`POST ${URI_PREFIX} - создать клиента, в теле запроса нужно передать объект { name: string, surname: string, lastName?: string, contacts?: object[] }`);
-      console.log(`\tcontacts - массив объектов контактов вида { type: string, value: string }`);
-      console.log(`GET ${URI_PREFIX}/{id} - получить клиента по его ID`);
-      console.log(`PATCH ${URI_PREFIX}/{id} - изменить клиента с ID, в теле запроса нужно передать объект { name?: string, surname?: string, lastName?: string, contacts?: object[] }`);
-      console.log(`\tcontacts - массив объектов контактов вида { type: string, value: string }`);
-      console.log(`DELETE ${URI_PREFIX}/{id} - удалить клиента по ID`);
+      console.log(`GET ${URI_PREFIX} - получить список товаров, в query параметр search можно передать поисковый запрос`);
+      console.log(`POST ${URI_PREFIX} - создать товар, в теле запроса нужно передать объект { name: string, description: string, price: number, img: string }`);
+      console.log(`DELETE ${URI_PREFIX}/{id} - удалить товар по ID`);
     }
   })
   // ...и вызываем запуск сервера на указанном порту
